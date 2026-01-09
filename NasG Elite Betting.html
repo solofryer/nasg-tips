@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NasG V55 | Hyper AI Business</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Outfit:wght@300;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #8b5cf6; --accent: #00ff88; --bg: #010409;
+            --glass: rgba(255, 255, 255, 0.05); --border: rgba(255, 255, 255, 0.1);
+            --neon-blue: #00d2ff; --neon-pink: #ff007f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background: var(--bg); color: #fff; overflow-x: hidden; min-height: 100vh; }
+
+        /* HYPER ANIMATION: MOVING BACKGROUND */
+        .bg-animate {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: linear-gradient(125deg, #020617, #1e1b4b, #020617);
+            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        header { 
+            padding: 20px; text-align: center; border-bottom: 2px solid var(--primary);
+            backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { font-family: 'Syncopate'; font-size: 1.5rem; letter-spacing: 5px; color: #fff; text-shadow: 0 0 15px var(--primary); }
+        .logo span { color: var(--accent); }
+
+        nav {
+            display: flex; overflow-x: auto; gap: 10px; padding: 15px;
+            background: rgba(0,0,0,0.8); border-bottom: 1px solid var(--border);
+            scrollbar-width: none;
+        }
+        nav button {
+            background: var(--glass); border: 1px solid var(--border); color: #fff;
+            padding: 10px 22px; border-radius: 50px; cursor: pointer; font-weight: 800;
+            font-size: 0.7rem; white-space: nowrap; transition: 0.4s;
+        }
+        nav button.active { background: var(--primary); transform: scale(1.05); box-shadow: 0 0 20px var(--primary); }
+
+        .container { padding: 15px; max-width: 500px; margin: 0 auto; }
+
+        /* CARDS */
+        .card {
+            background: var(--glass); border: 1px solid var(--border);
+            border-radius: 20px; padding: 20px; margin-bottom: 15px;
+            backdrop-filter: blur(10px); animation: fadeInUp 0.6s ease-out;
+            transition: 0.3s;
+        }
+        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .league { font-size: 0.6rem; font-weight: 900; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+        .match { display: flex; justify-content: space-between; font-weight: 900; font-size: 1rem; margin: 10px 0; }
+        .tip-btn {
+            background: linear-gradient(90deg, var(--primary), #6366f1);
+            padding: 12px; border-radius: 12px; text-align: center; font-weight: 900; font-size: 0.8rem;
+        }
+
+        /* VIP SECTION */
+        .vip-card {
+            border: 2px solid var(--neon-pink); text-align: center;
+            background: rgba(255, 0, 127, 0.05); animation: pulse 2s infinite alternate;
+        }
+        @keyframes pulse { from { box-shadow: 0 0 5px var(--neon-pink); } to { box-shadow: 0 0 25px var(--neon-pink); } }
+
+        /* OWNER SECTION */
+        .owner-card {
+            background: linear-gradient(145deg, #111827, #020617);
+            border: 1px solid var(--primary); border-radius: 30px; padding: 30px 20px; text-align: center;
+        }
+        .owner-icon {
+            width: 80px; height: 80px; background: var(--primary); border-radius: 50%;
+            margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; border: 3px solid var(--accent);
+        }
+
+        .wa-link-btn {
+            display: flex; align-items: center; gap: 15px; background: #25d366;
+            padding: 18px; border-radius: 20px; text-decoration: none; color: #fff;
+            margin-top: 20px; font-weight: 900; justify-content: center;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); transition: 0.3s;
+        }
+        .wa-link-btn:hover { transform: scale(1.05); }
+
+        .page { display: none; }
+        .page.active { display: block; }
+        footer { text-align: center; padding: 40px; font-size: 0.7rem; color: #4b5563; }
+    </style>
+</head>
+<body>
+
+    <div class="bg-animate"></div>
+
+    <header>
+        <div class="logo">NASG<span>ULTRA</span></div>
+        <p style="font-size:0.5rem; color:var(--accent); letter-spacing:3px; margin-top:5px;">REAL-TIME AI TERMINAL</p>
+    </header>
+
+    <nav>
+        <button onclick="tab('daily', this)" class="active">DAILY (10+)</button>
+        <button onclick="tab('sure', this)">SURE 5</button>
+        <button onclick="tab('vip', this)">VIP FIXED</button>
+        <button onclick="tab('owner', this)">OWNER</button>
+    </nav>
+
+    <div class="container">
+        
+        <section id="daily" class="page active">
+            <h3 style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 15px;">FREE DAILY PICKS (HALISI)</h3>
+            <div id="daily-list"></div>
+        </section>
+
+        <section id="sure" class="page">
+            <h3 style="font-size: 0.8rem; color: var(--accent); margin-bottom: 15px;">SURE 5 HIGH CONFIDENCE</h3>
+            <div id="sure-list"></div>
+        </section>
+
+        <section id="vip" class="page">
+            <div class="card vip-card">
+                <i class="fas fa-crown" style="font-size: 3rem; color: var(--neon-pink); margin-bottom: 15px;"></i>
+                <h2>VIP ENCRYPTED</h2>
+                <p style="font-size: 0.8rem; margin: 15px 0;">Pata mechi 5 za siri zenye uhakika wa 100%.</p>
+                <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:15px; margin-bottom:15px;">
+                    <h1 style="color:var(--neon-pink)">TZS 15,000</h1>
+                    <small>PER TICKET</small>
+                </div>
+                <a href="https://wa.link/jlsra2" class="wa-link-btn" style="background:var(--neon-pink)">
+                    <i class="fab fa-whatsapp"></i> NIPATIE MKEKA SASA
+                </a>
+            </div>
+        </section>
+
+        <section id="owner" class="page">
+            <div class="owner-card">
+                <div class="owner-icon"><i class="fas fa-user-tie"></i></div>
+                <h2 style="font-family:'Syncopate';">NASG CHIEF</h2>
+                <p style="font-size:0.85rem; color:#94a3b8; margin: 15px 0;">Wasiliana nami moja kwa moja kwa huduma za VIP na Sure Odds kupitia link chini.</p>
+                
+                <a href="https://wa.link/jlsra2" class="wa-link-btn">
+                    <i class="fab fa-whatsapp"></i> WHATSAPP (NASG)
+                </a>
+
+                <div style="margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <a href="tel:0617443803" style="background:var(--glass); padding:15px; border-radius:15px; text-decoration:none; color:#fff; font-size:0.8rem; border:1px solid var(--border);">
+                        <i class="fas fa-phone-alt" style="color:var(--accent)"></i> 0617443803
+                    </a>
+                    <a href="mailto:fryersolo@gmail.com" style="background:var(--glass); padding:15px; border-radius:15px; text-decoration:none; color:#fff; font-size:0.8rem; border:1px solid var(--border);">
+                        <i class="fas fa-envelope" style="color:var(--neon-blue)"></i> Email
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>NASG ULTRA V55 • © 2026</p>
+        <p style="color:#ef4444; margin-top:5px; font-weight:900;">18+ GAMBLE RESPONSIBLY</p>
+    </footer>
+
+    <script>
+        function tab(id, btn) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            if(btn) btn.classList.add('active');
+            
+            // Trigger Confetti kama ni ukurasa wa "SURE"
+            if(id === 'sure') {
+                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#8b5cf6', '#00ff88'] });
+            }
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function loadRealData() {
+            const daily = [
+                {l: "BUNDESLIGA", h: "Dortmund", a: "Leverkusen", p: "Over 2.5"},
+                {l: "LA LIGA", h: "Getafe", a: "Mallorca", p: "Home Win"},
+                {l: "LIGUE 1", h: "Lyon", a: "Montpellier", p: "1X"},
+                {l: "EREDIVISIE", h: "Ajax", a: "Twente", p: "Home Win"},
+                {l: "LIGA PORTUGAL", h: "Benfica", a: "Porto", p: "GG"},
+                {l: "SERIE A", h: "Inter", a: "Torino", p: "Home Win"},
+                {l: "CHAMPIONSHIP", h: "Hull", a: "Burnley", p: "Over 1.5"},
+                {l: "BELGIUM PRO", h: "Genk", a: "Brugge", p: "Over 2.5"},
+                {l: "PRO LEAGUE", h: "Al-Nassr", a: "Al-Hilal", p: "GG"},
+                {l: "SUPER LIG", h: "Galatasaray", a: "Konyaspor", p: "Home Win"}
+            ];
+
+            const sure = [
+                {l: "SURE 5", h: "B. Dortmund", a: "B. Leverkusen", p: "Over 2.5 Goals"},
+                {l: "SURE 5", h: "Ajax", a: "Twente", p: "Direct Win"},
+                {l: "SURE 5", h: "Lyon", a: "Montpellier", p: "Home Win"},
+                {l: "SURE 5", h: "Inter", a: "Torino", p: "Home Win"},
+                {l: "SURE 5", h: "Galatasaray", a: "Konyaspor", p: "Home Win"}
+            ];
+
+            let dHtml = '';
+            daily.forEach(m => {
+                dHtml += `<div class="card"><div class="league">${m.l}</div><div class="match"><span>${m.h}</span><span>vs</span><span>${m.a}</span></div><div class="tip-btn">PICK: ${m.p}</div></div>`;
+            });
+            document.getElementById('daily-list').innerHTML = dHtml;
+
+            let sHtml = '';
+            sure.forEach(m => {
+                sHtml += `<div class="card" style="border-color:var(--accent)"><div class="league" style="color:var(--accent)">${m.l}</div><div class="match"><span>${m.h}</span><span>vs</span><span>${m.a}</span></div><div class="tip-btn" style="background:var(--accent); color:#000">SURE PICK: ${m.p}</div></div>`;
+            });
+            document.getElementById('sure-list').innerHTML = sHtml;
+        }
+
+        window.onload = loadRealData;
+    </script>
+</body>
+</html>
